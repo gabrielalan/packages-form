@@ -1,0 +1,12 @@
+<div class="input-group">
+  <div class="input-group-btn">
+    <button type="button" class="btn btn-info dropdown-toggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
+      {{valueCurrency}} $
+    </button>
+    <div class="dropdown-menu" [ngClass]="{'show': show}">
+      <a class="dropdown-item" href="#" *ngFor="let currency of currencies" (click)="changeCurrency(currency)">{{currency}}</a>
+    </div>
+  </div>
+  <input type="text" class="form-control" [id]="id" aria-label="Text input with dropdown button" [value]="valueNumber" />
+</div>
