@@ -1,23 +1,53 @@
 <div class="packages-form">
   <h2>Packages</h2>
 
-  <form [formGroup]="form">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-      <div class="form-group col">
-        <label for="weight">Weight</label>
-        <input type="number" class="form-control" id="weight" placeholder="10" />
+  <form [formGroup]="form" novalidate>
+
+    <div formArrayName="packages">
+
+      <div *ngFor="let package of packages.controls; let i = index;" [formGroupName]="i" class="well well-lg">
+        <h3>Package #{{i + 1}}</h3>
+
+        <div class="form-group" [ngClass]="{'is-invalid': getNameAt(i).invalid && getNameAt(i).touched}">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name" />
+          <div *ngIf="getNameAt(i).invalid && (getNameAt(i).touched)">
+            <small *ngIf="getNameAt(i).errors.required" class="form-text text-danger">Name is required</small>
+            <small *ngIf="getNameAt(i).errors.maxlength" class="form-text text-danger">
+              Name must be less or equal than {{getNameAt(i).errors.maxlength.requiredLength}} characters.
+              You got {{getNameAt(i).errors.maxlength.actualLength}}!
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col" [ngClass]="{'is-invalid': getWeightAt(i).invalid && getWeightAt(i).touched}">
+            <label for="weight">Weight</label>
+            <input type="text" class="form-control" id="weight" placeholder="10" formControlName="weight" />
+            <div *ngIf="getWeightAt(i).invalid && (getWeightAt(i).touched)">
+              <small *ngIf="getWeightAt(i).errors.required" class="form-text text-danger">Weight is required</small>
+              <small *ngIf="getWeightAt(i).errors.pattern" class="form-text text-danger">Weight must be a number with up to 3 decimal places</small>
+            </div>
+          </div>
+
+          <div class="form-group col" [ngClass]="{'is-invalid': getValueAt(i).invalid && getValueAt(i).touched}">
+            <label for="value">Value</label>
+            <app-currency-value id="value"
+                                [currencies]="currencies"
+                                formControlName="value"></app-currency-value>
+            <div *ngIf="getValueAt(i).invalid && getValueAt(i).touched">
+              <small *ngIf="getValueAt(i).errors.required" class="form-text text-danger">Value is required</small>
+              <small *ngIf="getValueAt(i).errors.pattern" class="form-text text-danger">Value must be a number with up to 2 decimal places</small>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="form-group col">
-        <label for="value">Value</label>
-        <app-currency-value id="value"
-                            [currencies]="currencies"
-                            formControlName="value"></app-currency-value>
-      </div>
     </div>
+
+    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-success">Add one more package</button>
   </form>
+
   <p>{{form.value | json}}</p>
+  <p>{{form.status | json}}</p>
 </div>

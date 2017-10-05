@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CurrencyValueType } from '../../components/currency-value/currency-value-type';
+import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { PackagesFormModel } from './packages-form-model';
 
 @Component({
   selector: 'app-packages',
@@ -17,8 +17,33 @@ export class PackagesComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formsBuilder.group({
-      value: new CurrencyValueType('EUR', 0)
+      packages: this.formsBuilder.array([
+        this.formsBuilder.group(PackagesFormModel.getNewPackageGroup())
+      ])
     });
   }
 
+  addPackage(): void {
+    this.packages.push(this.formsBuilder.group(PackagesFormModel.getNewPackageGroup()));
+  }
+
+  getNameAt(index: number): AbstractControl {
+    return this.getPropertyAt('name', index);
+  }
+
+  getWeightAt(index: number): AbstractControl {
+    return this.getPropertyAt('weight', index);
+  }
+
+  getValueAt(index: number): AbstractControl {
+    return this.getPropertyAt('value', index);
+  }
+
+  getPropertyAt(property: string, index: number): AbstractControl {
+    return this.packages.at(index).get(property);
+  }
+
+  get packages(): FormArray {
+    return this.form.get('packages') as FormArray;
+  }
 }

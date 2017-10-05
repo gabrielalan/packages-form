@@ -1,7 +1,11 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, ViewChild, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import { Observable } from 'rxjs/Observable';
 import { CurrencyValueType } from './currency-value-type';
+
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-currency-value',
@@ -15,18 +19,19 @@ import { CurrencyValueType } from './currency-value-type';
     }
   ]
 })
-export class CurrencyValueComponent implements ControlValueAccessor {
+export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
   @Input() id: string;
 
   @Input() currencies: Array<string>;
 
+  @ViewChild('numberInput') numberInput;
+
   protected value: CurrencyValueType;
 
-  protected show: boolean = false;
+  protected show = false;
 
   protected propagateChange = (_: CurrencyValueType) => {};
-
-  constructor() {}
+  protected propagateTouched = () => {};
 
   get valueNumber(): number {
     return this.value ? this.value.value : null;
@@ -36,6 +41,14 @@ export class CurrencyValueComponent implements ControlValueAccessor {
     return this.value ? this.value.currency : null;
   }
 
+  ngOnInit() {
+    Observable
+      .fromEvent(this.numberInput.nativeElement, 'keyup')
+      .map((i: any) => i.currentTarget.value)
+      .debounceTime(300)
+      .subscribe(value => this.changeNumber(value));
+  }
+
   toggleDropdown() {
     this.show = !this.show;
   }
@@ -43,7 +56,14 @@ export class CurrencyValueComponent implements ControlValueAccessor {
   changeCurrency(newCurrency: string): void {
     this.value.currency = newCurrency;
     this.propagateChange(this.value);
+    this.propagateTouched();
     this.show = false;
+  }
+
+  changeNumber(newNumber) {
+    this.value.value = newNumber;
+    this.propagateChange(this.value);
+    this.propagateTouched();
   }
 
   writeValue(value: CurrencyValueType): void {
@@ -54,5 +74,7 @@ export class CurrencyValueComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
-  registerOnTouched(): void {}
+  registerOnTouched(fn): void {
+    this.propagateTouched = fn;
+  }
 }
