@@ -12,43 +12,23 @@
         <h3><span>Package #{{i + 1}}</span></h3>
 
         <div class="form-row">
-          <div class="form-group col-12 col-lg-4"
-               [ngClass]="{'is-invalid': getNameAt(i).invalid && getNameAt(i).touched}">
+          <app-form-group class="col-12 col-lg-4" [group]="package" field="name">
             <label for="name">Name</label>
             <input type="text" class="form-control form-control-lg" id="name" placeholder="Name" formControlName="name" />
-            <div *ngIf="getNameAt(i).invalid && (getNameAt(i).touched)">
-              <small *ngIf="getNameAt(i).errors.required" class="form-text text-danger">Name is required</small>
-              <small *ngIf="getNameAt(i).errors.maxlength" class="form-text text-danger">
-                Name must be less or equal than {{getNameAt(i).errors.maxlength.requiredLength}} characters.
-                You got {{getNameAt(i).errors.maxlength.actualLength}}!
-              </small>
-            </div>
-          </div>
+          </app-form-group>
 
-          <div class="form-group col-12 col-sm-6 col-md-6 col-lg-4"
-               [ngClass]="{'is-invalid': getWeightAt(i).invalid && getWeightAt(i).touched}">
+          <app-form-group class="col-12 col-sm-6 col-md-6 col-lg-4" [group]="package" field="weight">
             <label for="weight">Weight</label>
             <div class="input-group">
               <input type="text" class="form-control form-control-lg" id="weight" placeholder="10" formControlName="weight" />
               <span class="input-group-addon">kg</span>
             </div>
-            <div *ngIf="getWeightAt(i).invalid && (getWeightAt(i).touched)">
-              <small *ngIf="getWeightAt(i).errors.required" class="form-text text-danger">Weight is required</small>
-              <small *ngIf="getWeightAt(i).errors.pattern" class="form-text text-danger">Weight must be a number with up to 3 decimal places</small>
-            </div>
-          </div>
+          </app-form-group>
 
-          <div class="form-group col-12 col-sm-6 col-md-6 col-lg-4"
-               [ngClass]="{'is-invalid': getValueAt(i).invalid && getValueAt(i).touched}">
+          <app-form-group class="col-12 col-sm-6 col-md-6 col-lg-4" [group]="package" field="value">
             <label for="value">Value</label>
-            <app-currency-value id="value"
-                                [currencies]="currencies"
-                                formControlName="value"></app-currency-value>
-            <div *ngIf="getValueAt(i).invalid && getValueAt(i).touched">
-              <small *ngIf="getValueAt(i).errors.required" class="form-text text-danger">Value is required</small>
-              <small *ngIf="getValueAt(i).errors.pattern" class="form-text text-danger">Value must be a number with up to 2 decimal places</small>
-            </div>
-          </div>
+            <app-currency-value id="value" [currencies]="currencies" formControlName="value"></app-currency-value>
+          </app-form-group>
         </div>
 
         <div class="row justify-content-center">

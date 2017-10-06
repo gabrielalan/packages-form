@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl } from '@angular/forms';
-import { PackagesFormModel } from './packages-form-model';
+import { PackagesFormModelService } from '../../services/packages-form-model.service';
 
 @Component({
   selector: 'app-packages',
@@ -13,12 +13,15 @@ export class PackagesComponent implements OnInit {
 
   protected currencies = ['EUR', 'USD', 'GBP'];
 
-  constructor(protected formsBuilder: FormBuilder) { }
+  constructor(
+    protected formsBuilder: FormBuilder,
+    protected formModel: PackagesFormModelService
+  ) { }
 
   ngOnInit() {
     this.form = this.formsBuilder.group({
       packages: this.formsBuilder.array([
-        this.formsBuilder.group(PackagesFormModel.getNewPackageGroup())
+        this.formsBuilder.group(this.formModel.getNewPackageGroup())
       ])
     });
   }
@@ -28,7 +31,7 @@ export class PackagesComponent implements OnInit {
   }
 
   addPackage(): void {
-    this.packages.push(this.formsBuilder.group(PackagesFormModel.getNewPackageGroup()));
+    this.packages.push(this.formsBuilder.group(this.formModel.getNewPackageGroup()));
   }
 
   getNameAt(index: number): AbstractControl {

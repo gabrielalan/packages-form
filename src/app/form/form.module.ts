@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 import { CurrencyValueComponent } from './components/currency-value/currency-value.component';
+import { FormGroupComponent } from './components/form-group/form-group.component';
+import { ControlErrorComponent } from './components/control-error/control-error.component';
 import { PackagesComponent } from './containers/packages/packages.component';
 
+import { PackagesFormModelService } from './services/packages-form-model.service';
+import { FormValidatorAdapterService } from './services/form-validator-adapter.service';
+
 const components = [
+  FormGroupComponent,
+  ControlErrorComponent,
   CurrencyValueComponent,
   PackagesComponent
 ];
@@ -14,6 +22,10 @@ const components = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    FormValidatorAdapterService,
+    PackagesFormModelService
   ],
   declarations: components,
   exports: components
