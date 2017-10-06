@@ -9,7 +9,8 @@ export class PackagesFormModelService {
 
   public valueRegex: RegExp = /^(\d+|\.\d{1,2}|\d+\.\d{1,2})$/;
   public weightRegex: RegExp = /^(\d+|\.\d{1,3}|\d+\.\d{1,3})$/;
-  public maxLength: number = 32;
+  public nameMaxLength: number = 32;
+  public kgMax: number = 10;
 
   constructor(private adapter: FormValidatorAdapterService) {}
 
@@ -19,7 +20,7 @@ export class PackagesFormModelService {
       this.adapter.messageValidator(
         (error) => `Name must be less or equal than ${error.maxlength.requiredLength} characters.
                     You got ${error.maxlength.actualLength}!`,
-        Validators.maxLength(this.maxLength)
+        Validators.maxLength(this.nameMaxLength)
       )
     ];
   }
@@ -29,6 +30,11 @@ export class PackagesFormModelService {
       this.adapter.messageValidator(
         'Weight must be a number with up to 3 decimal places',
         Validators.pattern(this.weightRegex)
+      ),
+      this.adapter.messageValidator(
+        (error) => `The package can have up to ${error.max.max}kg.
+                    This one has ${error.max.actual}kg!`,
+        Validators.max(this.kgMax)
       ),
       this.adapter.messageValidator('Weight is required', Validators.required)
     ];

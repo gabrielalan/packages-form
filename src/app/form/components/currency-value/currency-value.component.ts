@@ -46,7 +46,7 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
     Observable
       .fromEvent(this.numberInput.nativeElement, 'keyup')
       .map((i: any) => i.currentTarget.value)
-      .debounceTime(300)
+      .debounceTime(10)
       .subscribe(value => this.changeNumber(value));
   }
 

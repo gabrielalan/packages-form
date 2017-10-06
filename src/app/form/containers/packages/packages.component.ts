@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { PackagesFormModelService } from '../../services/packages-form-model.service';
 import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
 
@@ -40,7 +40,10 @@ export class PackagesComponent implements OnInit {
     const packages = this.form.value.packages;
 
     return packages.reduce((result, item) => {
-      const converted = this.conversion.convertFrom(item.value.currency, item.value.value);
+      const value = Number(item.value.value);
+
+      // NaN is the only value that is not equal itself in JS
+      const converted = value !== value ? 0 : this.conversion.convertFrom(item.value.currency, value);
 
       return result + converted;
     }, 0);
