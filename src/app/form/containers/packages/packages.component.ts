@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl } from '@angular/forms';
 import { PackagesFormModelService } from '../../services/packages-form-model.service';
+import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
 
 @Component({
   selector: 'app-packages',
@@ -15,7 +16,8 @@ export class PackagesComponent implements OnInit {
 
   constructor(
     protected formsBuilder: FormBuilder,
-    protected formModel: PackagesFormModelService
+    protected formModel: PackagesFormModelService,
+    protected conversion: ConversionRatesService
   ) { }
 
   ngOnInit() {
@@ -34,20 +36,14 @@ export class PackagesComponent implements OnInit {
     this.packages.push(this.formsBuilder.group(this.formModel.getNewPackageGroup()));
   }
 
-  getNameAt(index: number): AbstractControl {
-    return this.getPropertyAt('name', index);
-  }
+  get total() {
+    const packages = this.form.value.packages;
 
-  getWeightAt(index: number): AbstractControl {
-    return this.getPropertyAt('weight', index);
-  }
+    return packages.reduce((result, item) => {
+      const converted = this.conversion.convertFrom(item.value.currency, item.value.value);
 
-  getValueAt(index: number): AbstractControl {
-    return this.getPropertyAt('value', index);
-  }
-
-  getPropertyAt(property: string, index: number): AbstractControl {
-    return this.packages.at(index).get(property);
+      return result + converted;
+    }, 0);
   }
 
   get packages(): FormArray {
