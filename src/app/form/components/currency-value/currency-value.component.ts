@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, forwardRef, ViewChild, OnInit, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { CurrencyValueType } from './currency-value-type';
@@ -25,6 +25,7 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
   @Input() currencies: Array<string>;
 
   @ViewChild('numberInput') numberInput;
+  @ViewChild('btnGroup') btnGroup;
 
   protected value: CurrencyValueType;
 
@@ -47,6 +48,13 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
       .map((i: any) => i.currentTarget.value)
       .debounceTime(300)
       .subscribe(value => this.changeNumber(value));
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(!this.btnGroup.nativeElement.contains(event.target)) {
+      this.show = false;
+    }
   }
 
   toggleDropdown() {

@@ -4,7 +4,7 @@
          [value]="valueNumber"
          (blur)="propagateTouched()"
          aria-label="Text input with dropdown button"/>
-  <div class="input-group-btn">
+  <div #btnGroup class="input-group-btn">
     <button type="button" class="btn btn-lg btn-light"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
       {{valueCurrency}}
