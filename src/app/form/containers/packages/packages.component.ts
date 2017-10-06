@@ -9,6 +9,7 @@ import { ConversionRatesService } from '../../../common/services/conversion-rate
   styleUrls: ['./packages.component.scss']
 })
 export class PackagesComponent implements OnInit {
+  protected loading = true;
 
   protected form: FormGroup;
 
@@ -21,6 +22,7 @@ export class PackagesComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formModel.createModel();
+    this.conversion.fetch().subscribe(() => this.loading = false);
   }
 
   removePackage(index: number): void {

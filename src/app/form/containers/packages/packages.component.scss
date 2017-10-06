@@ -1,6 +1,10 @@
 @import "~styles/variables";
 @import "~styles/containers";
 
+.packages-form {
+  position: relative;
+}
+
 .package-ct {
   @extend .app-card;
 

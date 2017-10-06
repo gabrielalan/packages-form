@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CommonModule as AppCommonModule } from '../common/common.module';
 
 import { CurrencyValueComponent } from './components/currency-value/currency-value.component';
 import { FormGroupComponent } from './components/form-group/form-group.component';
@@ -21,7 +22,8 @@ const components = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppCommonModule
   ],
   providers: [
     FormValidatorAdapterService,

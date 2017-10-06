@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/operator/map';
+
+export declare type ConversionRates = {[key: string]: number};
 
 @Injectable()
 export class ConversionRatesService {
-  base = 'EUR';
+  private apiUrl = 'api/conversionRates';
 
-  conversionRates = {
-    'EUR': 1,
-    'GBP': 1.11652693,
-    'USD': 0.85467894,
-  };
+  public conversionRates: ConversionRates = {};
 
-  fetch() {
+  constructor(private http: Http) {}
+
+  fetch(): Observable<ConversionRates> {
+    return this.http.get(this.apiUrl)
+      .map((value: any) => this.conversionRates = value.json() as ConversionRates);
   }
 
   convertFrom(currency: string, value: number): number {
