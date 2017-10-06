@@ -32,10 +32,12 @@
             </app-form-group>
           </div>
 
-          <div class="row justify-content-center">
-            <button class="btn btn-lg btn-danger"
-                    [disabled]="packages.length <= 1"
-                    (click)="removePackage(i)">Remove package</button>
+          <div class="row justify-content-right">
+            <div class="col">
+              <button class="btn btn-outline-danger"
+                      [disabled]="packages.length <= 1"
+                      (click)="removePackage(i)">Remove package</button>
+            </div>
           </div>
 
         </div>
@@ -57,8 +59,14 @@
       </div>
     </div>
 
-    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-light">Add one more package</button>
-    <button class="btn btn-lg btn-secondary">Continue</button>
+    <div class="row form-buttons">
+      <div class="col-12 col-lg-5 d-flex d-lg-block justify-content-center">
+        <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-block btn-light">Add one more package</button>
+      </div>
+      <div class="col-12 col-lg-4 d-flex d-lg-block justify-content-center">
+        <button class="btn btn-lg btn-secondary btn-block pull-right">Continue</button>
+      </div>
+    </div>
   </form>
 
   <p>{{form.value | json}}</p>
