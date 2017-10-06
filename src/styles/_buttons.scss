@@ -6,4 +6,10 @@
   &.btn-lg {
     padding: 20px 40px;
   }
+
+  &.btn-secondary[disabled] {
+  	background-color: $gray-600;
+  	border-color: $gray-600;
+  	color: $gray-900;
+  }
 }

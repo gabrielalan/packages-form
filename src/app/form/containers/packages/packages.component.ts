@@ -31,17 +31,26 @@ export class PackagesComponent implements OnInit {
     this.packages.push(this.formModel.getNewPackageGroup());
   }
 
-  get total() {
+  reduceArrayWith(value: (control) => number) {
     const packages = this.form.value.packages;
 
-    return packages.reduce((result, item) => {
-      const value = Number(item.value.value);
+    return packages.reduce((result, item) => result + value(item), 0);
+  }
 
+  get kilos() {
+    return this.reduceArrayWith(control => {
+      const value = Number(control.weight);
       // NaN is the only value that is not equal itself in JS
-      const converted = value !== value ? 0 : this.conversion.convertFrom(item.value.currency, value);
+      return value !== value ? 0 : value;
+    });
+  }
 
-      return result + converted;
-    }, 0);
+  get total() {
+    return this.reduceArrayWith(control => {
+      const value = Number(control.value.value);
+      // NaN is the only value that is not equal itself in JS
+      return value !== value ? 0 : this.conversion.convertFrom(control.value.currency, value);
+    });
   }
 
   get packages(): FormArray {

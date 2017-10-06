@@ -9,7 +9,10 @@
     <div class="row">
       <div formArrayName="packages" class="col-12 col-lg-9">
 
-        <div *ngFor="let package of packages.controls; let i = index;" [formGroupName]="i" class="package-ct">
+        <div *ngFor="let package of packages.controls; let i = index;" 
+             [formGroupName]="i" 
+             class="package-ct"
+             [ngClass]="{'package-invalid': package.invalid}">
           <h3><span>Package #{{i + 1}}</span></h3>
 
           <div class="form-row">
@@ -42,7 +45,7 @@
 
         </div>
 
-        <app-control-error class="big-error" [group]="form" field="packages"></app-control-error>
+        <app-control-error class="big-error" *ngIf="packages.length > 2" [group]="form" field="packages"></app-control-error>
       </div>
 
       <div class="col-12 col-lg-3">
@@ -51,7 +54,7 @@
             <dt>Number of packages</dt>
             <dd>{{ packages.length }}</dd>
             <dt>Total weight</dt>
-            <dd>25kg</dd>
+            <dd>{{kilos}}kg</dd>
             <dt>Total value (converted to EUR)</dt>
             <dd>€ {{total}}</dd>
           </dl>
@@ -64,7 +67,7 @@
         <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-block btn-light">Add one more package</button>
       </div>
       <div class="col-12 col-lg-4 d-flex d-lg-block justify-content-center">
-        <button class="btn btn-lg btn-secondary btn-block pull-right">Continue</button>
+        <button class="btn btn-lg btn-secondary btn-block pull-right" [disabled]="form.invalid">Continue</button>
       </div>
     </div>
   </form>

@@ -4,6 +4,10 @@
 .package-ct {
   @extend .app-card;
 
+  &.package-invalid {
+    border-color: lighten($red, 30%);
+  }
+
   h3 {
     font-size: 12px;
     text-transform: uppercase;
