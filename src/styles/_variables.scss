@@ -7,9 +7,23 @@ $indigo: $purple;
 $orange: #ff6200;
 $green: #08bf8f;
 $red: #e5213c;
+$cyan: #17a2b8;
+$yellow: #ffc107;
 $gray-100: #f2f2f2;
 $gray-600: #b6b6b6;
+$gray-800: #343a40;
 $input-focus-border-color: $purple;
+
+$theme-colors: (
+  primary: $blue,
+  secondary: $orange,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+) !default;
 
 /**
  * Path for font-awesome node-modules

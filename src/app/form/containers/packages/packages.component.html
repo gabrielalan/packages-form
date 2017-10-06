@@ -39,6 +39,8 @@
           </div>
 
         </div>
+
+        <app-control-error class="big-error" [group]="form" field="packages"></app-control-error>
       </div>
 
       <div class="col-12 col-lg-3">
@@ -55,10 +57,11 @@
       </div>
     </div>
 
-    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-success">Add one more package</button>
-    <button class="btn btn-lg btn-primary">Continue</button>
+    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-light">Add one more package</button>
+    <button class="btn btn-lg btn-secondary">Continue</button>
   </form>
 
   <p>{{form.value | json}}</p>
+  <p>{{packages.errors | json}}</p>
   <p>{{form.status | json}}</p>
 </div>

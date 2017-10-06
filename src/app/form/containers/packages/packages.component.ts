@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 import { PackagesFormModelService } from '../../services/packages-form-model.service';
 import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
 
@@ -15,17 +15,12 @@ export class PackagesComponent implements OnInit {
   protected currencies = ['EUR', 'USD', 'GBP'];
 
   constructor(
-    protected formsBuilder: FormBuilder,
     protected formModel: PackagesFormModelService,
     protected conversion: ConversionRatesService
   ) { }
 
   ngOnInit() {
-    this.form = this.formsBuilder.group({
-      packages: this.formsBuilder.array([
-        this.formsBuilder.group(this.formModel.getNewPackageGroup())
-      ])
-    });
+    this.form = this.formModel.createModel();
   }
 
   removePackage(index: number): void {
@@ -33,7 +28,7 @@ export class PackagesComponent implements OnInit {
   }
 
   addPackage(): void {
-    this.packages.push(this.formsBuilder.group(this.formModel.getNewPackageGroup()));
+    this.packages.push(this.formModel.getNewPackageGroup());
   }
 
   get total() {
