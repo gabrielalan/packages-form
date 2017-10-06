@@ -2,9 +2,16 @@
  * Base colors from assessment
  */
 $purple: #4d148c;
-$blue: #4d148c;
+$blue: $purple;
+$indigo: $purple;
 $orange: #ff6200;
 $green: #08bf8f;
 $red: #e5213c;
 $gray-100: #f2f2f2;
 $gray-600: #b6b6b6;
+$input-focus-border-color: $purple;
+
+/**
+ * Path for font-awesome node-modules
+ */
+$fa-font-path: "~font-awesome/fonts";

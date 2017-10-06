@@ -23,6 +23,10 @@ export class PackagesComponent implements OnInit {
     });
   }
 
+  removePackage(index: number): void {
+    this.packages.removeAt(index);
+  }
+
   addPackage(): void {
     this.packages.push(this.formsBuilder.group(PackagesFormModel.getNewPackageGroup()));
   }

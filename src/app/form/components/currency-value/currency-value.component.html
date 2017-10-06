@@ -1,10 +1,16 @@
 <div class="currency-value input-group">
+  <input #numberInput type="text" class="form-control form-control-lg"
+         [id]="id"
+         [value]="valueNumber"
+         (blur)="propagateTouched()"
+         aria-label="Text input with dropdown button"/>
   <div class="input-group-btn">
-    <button type="button" class="btn btn-light dropdown-toggle"
+    <button type="button" class="btn btn-lg btn-light"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
-      {{valueCurrency}} $
+      {{valueCurrency}}
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
     </button>
-    <div class="dropdown-menu" [ngClass]="{'show': show}">
+    <div class="dropdown-menu dropdown-menu-right" [ngClass]="{'show': show}">
       <button class="dropdown-item"
               *ngFor="let currency of currencies"
               (click)="changeCurrency(currency)">
@@ -12,9 +18,4 @@
       </button>
     </div>
   </div>
-  <input #numberInput type="text" class="form-control"
-         [id]="id"
-         [value]="valueNumber"
-         (blur)="propagateTouched()"
-         aria-label="Text input with dropdown button"/>
 </div>

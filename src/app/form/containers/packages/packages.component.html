@@ -1,36 +1,45 @@
 <div class="packages-form">
-  <h2>Packages</h2>
+  <p class="text-dark">
+    Add packages to your shipment.
+    You can add up to <b>5</b> packages and the weight of all packages combined cannot be more than <b>25kg.</b>
+  </p>
 
   <form [formGroup]="form" novalidate>
 
     <div formArrayName="packages">
 
-      <div *ngFor="let package of packages.controls; let i = index;" [formGroupName]="i" class="well well-lg">
-        <h3>Package #{{i + 1}}</h3>
-
-        <div class="form-group" [ngClass]="{'is-invalid': getNameAt(i).invalid && getNameAt(i).touched}">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name" />
-          <div *ngIf="getNameAt(i).invalid && (getNameAt(i).touched)">
-            <small *ngIf="getNameAt(i).errors.required" class="form-text text-danger">Name is required</small>
-            <small *ngIf="getNameAt(i).errors.maxlength" class="form-text text-danger">
-              Name must be less or equal than {{getNameAt(i).errors.maxlength.requiredLength}} characters.
-              You got {{getNameAt(i).errors.maxlength.actualLength}}!
-            </small>
-          </div>
-        </div>
+      <div *ngFor="let package of packages.controls; let i = index;" [formGroupName]="i" class="package-ct">
+        <h3><span>Package #{{i + 1}}</span></h3>
 
         <div class="form-row">
-          <div class="form-group col" [ngClass]="{'is-invalid': getWeightAt(i).invalid && getWeightAt(i).touched}">
+          <div class="form-group col-12 col-lg-4"
+               [ngClass]="{'is-invalid': getNameAt(i).invalid && getNameAt(i).touched}">
+            <label for="name">Name</label>
+            <input type="text" class="form-control form-control-lg" id="name" placeholder="Name" formControlName="name" />
+            <div *ngIf="getNameAt(i).invalid && (getNameAt(i).touched)">
+              <small *ngIf="getNameAt(i).errors.required" class="form-text text-danger">Name is required</small>
+              <small *ngIf="getNameAt(i).errors.maxlength" class="form-text text-danger">
+                Name must be less or equal than {{getNameAt(i).errors.maxlength.requiredLength}} characters.
+                You got {{getNameAt(i).errors.maxlength.actualLength}}!
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group col-12 col-sm-6 col-md-6 col-lg-4"
+               [ngClass]="{'is-invalid': getWeightAt(i).invalid && getWeightAt(i).touched}">
             <label for="weight">Weight</label>
-            <input type="text" class="form-control" id="weight" placeholder="10" formControlName="weight" />
+            <div class="input-group">
+              <input type="text" class="form-control form-control-lg" id="weight" placeholder="10" formControlName="weight" />
+              <span class="input-group-addon">kg</span>
+            </div>
             <div *ngIf="getWeightAt(i).invalid && (getWeightAt(i).touched)">
               <small *ngIf="getWeightAt(i).errors.required" class="form-text text-danger">Weight is required</small>
               <small *ngIf="getWeightAt(i).errors.pattern" class="form-text text-danger">Weight must be a number with up to 3 decimal places</small>
             </div>
           </div>
 
-          <div class="form-group col" [ngClass]="{'is-invalid': getValueAt(i).invalid && getValueAt(i).touched}">
+          <div class="form-group col-12 col-sm-6 col-md-6 col-lg-4"
+               [ngClass]="{'is-invalid': getValueAt(i).invalid && getValueAt(i).touched}">
             <label for="value">Value</label>
             <app-currency-value id="value"
                                 [currencies]="currencies"
@@ -42,10 +51,16 @@
           </div>
         </div>
 
+        <div class="row justify-content-center">
+          <button class="btn btn-lg btn-danger"
+                  [disabled]="packages.length <= 1"
+                  (click)="removePackage(i)">Remove package</button>
+        </div>
+
       </div>
     </div>
 
-    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-success">Add one more package</button>
+    <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-success">Add one more package</button>
   </form>
 
   <p>{{form.value | json}}</p>

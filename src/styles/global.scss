@@ -22,10 +22,10 @@
   "~bootstrap/scss/custom-forms",
   "~bootstrap/scss/nav",
   "~bootstrap/scss/navbar",
-  //"~bootstrap/scss/card",
+  "~bootstrap/scss/card",
   //"~bootstrap/scss/breadcrumb",
   //"~bootstrap/scss/pagination",
-  //"~bootstrap/scss/badge",
+  "~bootstrap/scss/badge",
   //"~bootstrap/scss/jumbotron",
   //"~bootstrap/scss/alert",
   //"~bootstrap/scss/progress",
@@ -38,4 +38,5 @@
   //"~bootstrap/scss/carousel",
   "~bootstrap/scss/utilities";
 
+@import 'fonts';
 @import 'forms';

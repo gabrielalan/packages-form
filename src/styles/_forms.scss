@@ -1,5 +1,59 @@
-.is-invalid {
+.form-group {
+  $border-width: 3px;
+  $input-padding-left: 16px;
+
+  position: relative;
+
+  .form-control {
+    padding-top: 25px;
+    border-radius: 0px;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left-width: $border-width;
+    background-color: $gray-100;
+
+    &:not(:focus) {
+      border-left-color: $gray-600;
+
+      &.ng-untouched {
+        border-left-color: $gray-100;
+      }
+    }
+  }
+
+  .input-group-addon {
+    border-radius: 0px;
+    border: none;
+    background-color: $gray-100;
+  }
+
+  .input-group-btn {
+    align-items: stretch;
+  }
+
+  label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    top: 12px;
+    margin-left: $input-padding-left + $border-width;
+    color: darken($gray-600, 20%);
+    z-index: 5;
+  }
+}
+
+.form-group.is-invalid {
   .form-control {
     border-color: $red;
   }
+
+  label {
+    color: $red;
+  }
+}
+
+.ng-untouched .form-control:not(:focus) {
+  border-left-color: $gray-100;
 }
