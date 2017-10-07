@@ -4,6 +4,8 @@ import { CurrencyValueType } from '../../components/currency-value/currency-valu
 import { PackagesFormModelService } from '../../services/packages-form-model.service';
 import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
 import { ShipmentService } from '../../services/shipment.service';
+import { DialogStreamService } from '../../../common/services/dialog-stream.service';
+
 
 @Component({
   selector: 'app-packages',
@@ -20,7 +22,8 @@ export class PackagesComponent implements OnInit {
   constructor(
     protected formModel: PackagesFormModelService,
     protected conversion: ConversionRatesService,
-    protected shipment: ShipmentService
+    protected shipment: ShipmentService,
+    protected dialogStream: DialogStreamService
   ) { }
 
   ngOnInit() {
@@ -62,6 +65,10 @@ export class PackagesComponent implements OnInit {
     this.shipment.send(data).subscribe(
       () => {
         this.reset();
+        this.dialogStream.send({
+          title: 'Thank you',
+          body: 'Your shipment is successfully sent. Jut sit and relax!'
+        });
       },
       (error) => {
         console.log(error.message);

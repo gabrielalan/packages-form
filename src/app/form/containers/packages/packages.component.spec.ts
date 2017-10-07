@@ -9,6 +9,7 @@ import { ShipmentService } from '../../services/shipment.service';
 import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
 import { CurrencyValueComponent } from '../../components/currency-value/currency-value.component';
 import { CurrencyValueType } from '../../components/currency-value/currency-value-type';
+import { DialogStreamService } from '../../../common/services/dialog-stream.service';
 
 
 class RatesMock {
@@ -28,14 +29,9 @@ class RatesMock {
 }
 
 class ShipmentMock {
-  static error;
-
-  static sendError = jasmine.createSpy('sendError').and.callFake(data => Observable.throw(ShipmentMock.error));
-  static sendSuccs = jasmine.createSpy('sendSuccs').and.callFake(data => Observable.of(true));
-
-  send = jasmine.createSpy('send').and.callFake(
-    (data) => ShipmentMock.error ? ShipmentMock.sendError() : ShipmentMock.sendSuccs()
-  );
+  send() {
+    return Observable.of(true);
+  }
 }
 
 describe('PackagesComponent', () => {
@@ -52,6 +48,7 @@ describe('PackagesComponent', () => {
       providers: [
         FormValidatorAdapterService,
         PackagesFormModelService,
+        DialogStreamService,
         { provide: ConversionRatesService, useClass: RatesMock },
         { provide: ShipmentService, useClass: ShipmentMock }
       ],
@@ -83,15 +80,29 @@ describe('PackagesComponent', () => {
 
     expect(component.kilos).toEqual('10.000');
     expect(component.total).toEqual(10);
+
+    component.removePackage(0);
+
+    expect(component.kilos).toEqual('10.000');
+    expect(component.total).toEqual(10);
+  });
+
+  it('should should handle error from api', () => {
+    const sendSpy = spyOn(shipmentInstance, 'send').and.callFake(() => Observable.throw(new Error('Fake test error')));
+    component.send();
+
+    expect(component).toBeTruthy();
+    expect(shipmentInstance.send.calls.count()).toBe(1);
   });
 
   it('should successfully send date to api', () => {
+    const sendSpy = spyOn(shipmentInstance, 'send').and.callFake(data => Observable.of(true));
+
     component.addPackage();
     component.send();
 
     expect(component).toBeTruthy();
     expect(shipmentInstance.send.calls.count()).toBe(1);
-    expect(ShipmentMock.sendSuccs.calls.count()).toBe(1);
     expect(shipmentInstance.send).toHaveBeenCalledWith({
       packages: [
         { name: null, weight: 0, value: 0 },
@@ -99,24 +110,13 @@ describe('PackagesComponent', () => {
       ]
     });
 
-    component.removePackage(1);
     component.send();
 
     expect(shipmentInstance.send.calls.count()).toBe(2);
-    expect(ShipmentMock.sendSuccs.calls.count()).toBe(2);
     expect(shipmentInstance.send).toHaveBeenCalledWith({
       packages: [
         { name: null, weight: 0, value: 0 }
       ]
     });
-  });
-
-  it('should should handle error from api', () => {
-    ShipmentMock.error = new Error('Fake test error');
-    component.send();
-
-    expect(component).toBeTruthy();
-    expect(shipmentInstance.send.calls.count()).toBe(1);
-    expect(ShipmentMock.sendError.calls.count()).toBe(1);
   });
 });
