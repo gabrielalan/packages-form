@@ -37,6 +37,7 @@ describe('ControlErrorComponent', () => {
 
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    expect(component.message).toBeFalsy();
   });
 
   it('should show the component but not the message', () => {
