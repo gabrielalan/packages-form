@@ -9,14 +9,14 @@ export class PackagesFormModelService {
 
   public valueRegex: RegExp = /^(\d+|\.\d{1,2}|\d+\.\d{1,2})$/;
   public weightRegex: RegExp = /^(\d+|\.\d{1,3}|\d+\.\d{1,3})$/;
-  public nameMaxLength: number = 32;
-  public kgMax: number = 10;
-  public sumKgMax: number = 25;
+  public nameMaxLength = 32;
+  public kgMax = 10;
+  public sumKgMax = 25;
 
   public weightMaxMessage = (error) =>
-    `The package can have up to ${error.max.max}kg. This one has ${error.max.actual}kg!`;
+    `The package can have up to ${error.max.max}kg. This one has ${error.max.actual}kg!`
 
-  public nameMaxLengthMessage = (error) => 
+  public nameMaxLengthMessage = (error) =>
     `Name must be less or equal than ${error.maxlength.requiredLength} characters. You got ${error.maxlength.actualLength}!`
 
   constructor(

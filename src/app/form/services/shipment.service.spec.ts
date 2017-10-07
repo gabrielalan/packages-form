@@ -18,7 +18,7 @@ describe('ShipmentService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should send data to the back end', 
+  it('should send data to the back end',
     inject([ShipmentService, XHRBackend], (service: ShipmentService, mockBe) => {
       const mockResponse = { result: true };
 

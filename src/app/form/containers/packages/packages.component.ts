@@ -56,7 +56,7 @@ export class PackagesComponent implements OnInit {
         return Object.assign(item, {
           weight: Number(item.weight),
           value: this.conversion.convertFrom(item.value.currency, item.value.value)
-        })
+        });
       })
     });
 
@@ -71,7 +71,10 @@ export class PackagesComponent implements OnInit {
         });
       },
       (error) => {
-        console.log(error.message);
+        this.dialogStream.send({
+          title: 'Oops!',
+          body: `We had a problem sending the data: ${error.message}`
+        });
         this.loading = false;
       }
     );

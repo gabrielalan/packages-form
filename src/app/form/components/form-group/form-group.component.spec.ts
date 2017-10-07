@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormGroupComponent } from './form-group.component';
 
 describe('FormGroupComponent', () => {
-  let builder = new FormBuilder();
+  const builder = new FormBuilder();
   let component: FormGroupComponent;
   let fixture: ComponentFixture<FormGroupComponent>;
   let element;

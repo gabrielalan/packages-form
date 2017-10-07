@@ -19,7 +19,7 @@ describe('ConversionRatesService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should fetch and return observable with transformed data', 
+  it('should fetch and return observable with transformed data',
     inject([ConversionRatesService, XHRBackend], (service: ConversionRatesService, mockBe) => {
       const mockResponse = {
         'EUR': 1,

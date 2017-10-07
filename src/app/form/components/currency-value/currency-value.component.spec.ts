@@ -4,18 +4,18 @@ import { CurrencyValueComponent } from './currency-value.component';
 import { CurrencyValueType } from './currency-value-type';
 
 const keyEventInit = {
-  "key" : 'a',
-  "code" : 'KeyA',
-  "location" : 0,
-  "ctrlKey" : false,
-  "shiftKey" : false,
-  "altKey" : false,
-  "metaKey" : false,
-  "repeat" : false,
-  "isComposing" : false,
-  "charCode" : 0,
-  "keyCode" : 65,
-  "which" : 65
+  'key' : 'a',
+  'code' : 'KeyA',
+  'location' : 0,
+  'ctrlKey' : false,
+  'shiftKey' : false,
+  'altKey' : false,
+  'metaKey' : false,
+  'repeat' : false,
+  'isComposing' : false,
+  'charCode' : 0,
+  'keyCode' : 65,
+  'which' : 65
 };
 
 describe('CurrencyValueComponent', () => {
@@ -61,7 +61,7 @@ describe('CurrencyValueComponent', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(component.show).toBeFalsy();
-    component.toggleDropdown()
+    component.toggleDropdown();
     expect(component.show).toBeTruthy();
   });
 
@@ -70,7 +70,7 @@ describe('CurrencyValueComponent', () => {
     component.registerOnChange(changeSpy);
     fixture.detectChanges();
     element.querySelector('input').dispatchEvent(new KeyboardEvent('keyup', keyEventInit));
-    
+
     // The event is debounced for 10 miliseconds in the component
     setTimeout(() => {
       expect(changeSpy).toHaveBeenCalled();

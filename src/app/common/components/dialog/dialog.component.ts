@@ -8,36 +8,36 @@ import { DialogStreamService, Message } from '../../services/dialog-stream.servi
 })
 export class DialogComponent implements OnInit {
 
-	public message: Message;
+  public message: Message;
 
-	public show = false;
+  public show = false;
 
   constructor(private stream: DialogStreamService) {}
 
   ngOnInit() {
-  	this.stream.subscribe(message => this.showMessage(message));
+    this.stream.subscribe(message => this.showMessage(message));
   }
 
   showMessage(message: Message) {
-  	this.message = message;
-  	this.show = true;
+    this.message = message;
+    this.show = true;
   }
 
   toggle() {
-  	this.show = !this.show;
+    this.show = !this.show;
   }
 
   get title() {
-  	return this.message ? this.message.title : null;
+    return this.message ? this.message.title : null;
   }
 
   get body() {
-  	return this.message ? this.message.body : null;
+    return this.message ? this.message.body : null;
   }
 
   get classes() {
-  	return {
-  		'show': this.show
-  	}
+    return {
+      'show': this.show
+    };
   }
 } /* istanbul ignore next */

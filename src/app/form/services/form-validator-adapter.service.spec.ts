@@ -22,8 +22,9 @@ describe('FormValidatorAdapterService', () => {
 
   it('should work with string message', inject([FormValidatorAdapterService], (service: FormValidatorAdapterService) => {
     const validator = service.messageValidator(
-    	(error) => `Name must be less or equal than ${error.maxlength.requiredLength} characters. You got ${error.maxlength.actualLength}!`, 
-        Validators.maxLength(1));
+      (error) => `Name must be less or equal than ${error.maxlength.requiredLength} characters. You got ${error.maxlength.actualLength}!`,
+      Validators.maxLength(1)
+    );
     const control = new FormControl('ab');
 
     expect(validator(control).message).toBe('Name must be less or equal than 1 characters. You got 2!');

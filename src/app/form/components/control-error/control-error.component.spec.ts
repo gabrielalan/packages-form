@@ -7,13 +7,15 @@ const validator = Validators.maxLength(4);
 const messageValidator = (control) => {
   const result = validator(control);
 
-  if (result) result.message = 'Error';
+  if (result) {
+    result.message = 'Error';
+  }
 
   return result;
 };
 
 describe('ControlErrorComponent', () => {
-  let builder = new FormBuilder();
+  const builder = new FormBuilder();
   let component: ControlErrorComponent;
   let fixture: ComponentFixture<ControlErrorComponent>;
   let element;

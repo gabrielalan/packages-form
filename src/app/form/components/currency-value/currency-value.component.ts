@@ -52,7 +52,7 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(!this.btnGroup.nativeElement.contains(event.target)) {
+    if (!this.btnGroup.nativeElement.contains(event.target)) {
       this.show = false;
     }
   }

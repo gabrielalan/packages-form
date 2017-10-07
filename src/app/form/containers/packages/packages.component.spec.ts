@@ -37,7 +37,7 @@ class ShipmentMock {
 describe('PackagesComponent', () => {
   let component: PackagesComponent;
   let fixture: ComponentFixture<PackagesComponent>;
-  let element, shipmentInstance;
+  let shipmentInstance;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

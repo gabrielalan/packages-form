@@ -10,7 +10,7 @@ import { DialogStreamService } from './services/dialog-stream.service';
 
 // To mock conversion-rates
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ApiMock }  from './api-mock.service';
+import { ApiMock } from './api-mock.service';
 
 const components = [
   HeaderComponent,

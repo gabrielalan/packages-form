@@ -21,7 +21,7 @@ describe('HeaderComponent', () => {
     const fixture: ComponentFixture<HeaderComponent> = TestBed.createComponent(HeaderComponent);
     const component: HeaderComponent = fixture.componentInstance;
     const el = fixture.debugElement.nativeElement;
-    const testTitle = "My Title";
+    const testTitle = 'My Title';
 
     component.title = testTitle;
     fixture.detectChanges();
