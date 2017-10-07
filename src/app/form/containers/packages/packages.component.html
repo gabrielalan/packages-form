@@ -10,7 +10,7 @@
              [formGroupName]="i" 
              class="package-ct"
              [ngClass]="{'package-invalid': package.invalid}">
-          <h3><span>Package #{{i + 1}}</span></h3>
+          <h2 class="package-title"><span>Package #{{i + 1}}</span></h2>
 
           <div class="form-row">
             <app-form-group class="col-12 col-lg-4" [group]="package" field="name">

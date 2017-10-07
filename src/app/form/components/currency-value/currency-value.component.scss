@@ -5,6 +5,13 @@
     border-color: $gray-100;
   }
 
+  .dropdown-menu {
+    background-color: #ececec;
+    border-radius: 0px;
+    border: none;
+    margin: 0;
+  }
+
   .dropdown-menu-right {
     right: 0;
     left: auto;

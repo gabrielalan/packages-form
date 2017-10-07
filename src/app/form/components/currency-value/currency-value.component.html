@@ -1,9 +1,9 @@
 <div class="currency-value input-group">
   <input #numberInput type="text" class="form-control form-control-lg"
          [id]="id"
+         [name]="id"
          [value]="valueNumber"
-         (blur)="propagateTouched()"
-         aria-label="Text input with dropdown button"/>
+         (blur)="propagateTouched()"/>
   <div #btnGroup class="input-group-btn">
     <button type="button" class="btn btn-light"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
@@ -11,7 +11,7 @@
       <i class="fa fa-chevron-down" aria-hidden="true"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-right" [ngClass]="{'show': show}">
-      <button class="dropdown-item"
+      <button class="dropdown-item text-right"
               *ngFor="let currency of currencies"
               (click)="changeCurrency(currency)">
         {{currency}}
