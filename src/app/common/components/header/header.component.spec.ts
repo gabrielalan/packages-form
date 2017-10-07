@@ -27,6 +27,6 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
 
     expect(el.querySelector('h1').textContent).toContain(testTitle);
-    expect(el.querySelector('img').src).toContain('logo.svg');
+    expect(el.querySelector('img').src).toContain('logo-original.svg');
   }));
 });

@@ -18,13 +18,8 @@ export class ControlErrorComponent {
   }
 
   get message() {
-    const error = this.control.errors;
-
-    if (!error) {
-      return false;
-    }
-
-    return error.message;
+    // this getter is only alled if the field is invalid
+    return this.control.errors.message;
   }
 
   get control(): AbstractControl {

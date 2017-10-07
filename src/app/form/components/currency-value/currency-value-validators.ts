@@ -21,5 +21,6 @@ export function pattern(regex: RegExp): ValidatorFn {
  * @returns {(control:AbstractControl)=>{[p: string]: any}}
  */
 export function required(control: AbstractControl): {[key: string]: any} {
-  return !control.value.value || !control.value.currency ? {'required': {value: control.value}} : null;
+  const required = { value: control.value.value, currency: control.value.currency };
+  return !control.value.value || !control.value.currency ? { required } : null;
 }

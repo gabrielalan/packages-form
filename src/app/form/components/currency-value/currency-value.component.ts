@@ -27,9 +27,9 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
   @ViewChild('numberInput') numberInput;
   @ViewChild('btnGroup') btnGroup;
 
-  protected value: CurrencyValueType;
+  public value: CurrencyValueType;
 
-  protected show = false;
+  public show = false;
 
   protected propagateChange = (_: CurrencyValueType) => {};
   protected propagateTouched = () => {};

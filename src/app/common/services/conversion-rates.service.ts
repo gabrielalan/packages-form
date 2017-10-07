@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -22,4 +22,4 @@ export class ConversionRatesService {
   convertFrom(currency: string, value: number): number {
     return Number((this.conversionRates[currency] * value).toFixed(2));
   }
-}
+} /* istanbul ignore next */

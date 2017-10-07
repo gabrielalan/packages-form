@@ -13,6 +13,12 @@ export class PackagesFormModelService {
   public kgMax: number = 10;
   public sumKgMax: number = 25;
 
+  public weightMaxMessage = (error) =>
+    `The package can have up to ${error.max.max}kg. This one has ${error.max.actual}kg!`;
+
+  public nameMaxLengthMessage = (error) => 
+    `Name must be less or equal than ${error.maxlength.requiredLength} characters. You got ${error.maxlength.actualLength}!`
+
   constructor(
     private adapter: FormValidatorAdapterService,
     private formsBuilder: FormBuilder
@@ -21,11 +27,7 @@ export class PackagesFormModelService {
   getNameValidators() {
     return [
       this.adapter.messageValidator('Name is required', Validators.required),
-      this.adapter.messageValidator(
-        (error) => `Name must be less or equal than ${error.maxlength.requiredLength} characters.
-                    You got ${error.maxlength.actualLength}!`,
-        Validators.maxLength(this.nameMaxLength)
-      )
+      this.adapter.messageValidator(this.nameMaxLengthMessage, Validators.maxLength(this.nameMaxLength))
     ];
   }
 
@@ -36,8 +38,7 @@ export class PackagesFormModelService {
         Validators.pattern(this.weightRegex)
       ),
       this.adapter.messageValidator(
-        (error) => `The package can have up to ${error.max.max}kg.
-                    This one has ${error.max.actual}kg!`,
+        this.weightMaxMessage,
         Validators.max(this.kgMax)
       ),
       this.adapter.messageValidator('Weight is required', Validators.required)
@@ -90,4 +91,4 @@ export class PackagesFormModelService {
       value: [new CurrencyValueType('EUR', null), this.getValueValidators()]
     });
   }
-}
+} /* istanbul ignore next */

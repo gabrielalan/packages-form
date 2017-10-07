@@ -14,4 +14,4 @@ export class ShipmentService {
     return this.http
       .post(this.apiUrl, JSON.stringify(data), { headers: this.headers });
   }
-}
+} /* istanbul ignore next */

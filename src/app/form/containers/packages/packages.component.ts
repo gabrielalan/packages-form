@@ -60,11 +60,11 @@ export class PackagesComponent implements OnInit {
     this.loading = true;
 
     this.shipment.send(data).subscribe(
-      (response) => {
+      () => {
         this.reset();
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
         this.loading = false;
       }
     );
@@ -91,4 +91,4 @@ export class PackagesComponent implements OnInit {
   get packages(): FormArray {
     return this.form.get('packages') as FormArray;
   }
-}
+} /* istanbul ignore next */
