@@ -64,12 +64,14 @@
         <button (click)="addPackage()" [disabled]="packages.length >= 5" class="btn btn-lg btn-block btn-outline-primary">Add one more package</button>
       </div>
       <div class="col-12 col-lg-4 d-flex d-lg-block justify-content-center">
-        <button class="btn btn-lg btn-secondary btn-block pull-right" [disabled]="form.invalid">Send shipment</button>
+        <button class="btn btn-lg btn-secondary btn-block pull-right" 
+                (click)="send()"
+                [disabled]="form.invalid">Send shipment</button>
       </div>
     </div>
   </form>
 
-  <p>{{form.value | json}}</p>
+  <!-- <p>{{form.value | json}}</p>
   <p>{{packages.errors | json}}</p>
-  <p>{{form.status | json}}</p>
+  <p>{{form.status | json}}</p> -->
 </div>

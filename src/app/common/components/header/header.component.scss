@@ -1,8 +1,12 @@
 .app-header {
-  /**
-   * Temporary
-   */
-  img {
-    opacity: 0.03;
-  }
+	margin-bottom: 20px;
+
+	img {
+		margin: 0px 10px 0px 0px;
+	}
+
+	.navbar-brand {
+		text-transform: uppercase;
+		font-size: 20px;
+	}
 }

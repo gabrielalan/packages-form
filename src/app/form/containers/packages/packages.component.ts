@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
+import { CurrencyValueType } from '../../components/currency-value/currency-value-type';
 import { PackagesFormModelService } from '../../services/packages-form-model.service';
 import { ConversionRatesService } from '../../../common/services/conversion-rates.service';
+import { ShipmentService } from '../../services/shipment.service';
 
 @Component({
   selector: 'app-packages',
@@ -17,7 +19,8 @@ export class PackagesComponent implements OnInit {
 
   constructor(
     protected formModel: PackagesFormModelService,
-    protected conversion: ConversionRatesService
+    protected conversion: ConversionRatesService,
+    protected shipment: ShipmentService
   ) { }
 
   ngOnInit() {
@@ -39,12 +42,42 @@ export class PackagesComponent implements OnInit {
     return packages.reduce((result, item) => result + value(item), 0);
   }
 
+  reset() {
+    this.loading = false;
+    this.form = this.formModel.createModel();
+  }
+
+  send() {
+    const data = Object.assign(this.form.value, {
+      packages: this.form.value.packages.map(item => {
+        return Object.assign(item, {
+          weight: Number(item.weight),
+          value: this.conversion.convertFrom(item.value.currency, item.value.value)
+        })
+      })
+    });
+
+    this.loading = true;
+
+    this.shipment.send(data).subscribe(
+      (response) => {
+        this.reset();
+      },
+      (error) => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
+  }
+
   get kilos() {
-    return this.reduceArrayWith(control => {
+    const sum = this.reduceArrayWith(control => {
       const value = Number(control.weight);
       // NaN is the only value that is not equal itself in JS
       return value !== value ? 0 : value;
-    });
+    }) as number;
+
+    return sum.toFixed(3);
   }
 
   get total() {

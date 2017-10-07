@@ -10,6 +10,7 @@ import { PackagesComponent } from './containers/packages/packages.component';
 
 import { PackagesFormModelService } from './services/packages-form-model.service';
 import { FormValidatorAdapterService } from './services/form-validator-adapter.service';
+import { ShipmentService } from './services/shipment.service';
 
 const components = [
   FormGroupComponent,
@@ -27,7 +28,8 @@ const components = [
   ],
   providers: [
     FormValidatorAdapterService,
-    PackagesFormModelService
+    PackagesFormModelService,
+    ShipmentService
   ],
   declarations: components,
   exports: components
