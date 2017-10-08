@@ -8,9 +8,9 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { ConversionRatesService } from './services/conversion-rates.service';
 import { DialogStreamService } from './services/dialog-stream.service';
 
-// To mock conversion-rates
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ApiMock } from './api-mock.service';
+// To mock requests
+import { mockBackendProvider } from './mock/mock-backend';
+import { MockBackend } from '@angular/http/testing';
 
 const components = [
   HeaderComponent,
@@ -26,8 +26,11 @@ const providers = [
 @NgModule({
   imports: [
     NgCommonModule,
-    HttpModule,
-    InMemoryWebApiModule.forRoot(ApiMock, { delay: 800 })
+    HttpModule
+  ],
+  providers: [
+    MockBackend,
+    mockBackendProvider
   ],
   declarations: components,
   exports: components

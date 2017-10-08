@@ -1,7 +1,8 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class ApiMock implements InMemoryDbService {
-  createDb() {
+  createDb(reqInfo) {
+    console.log(reqInfo);
     return {
       shipment: [{ id: 0 }],
       conversionRates: {
