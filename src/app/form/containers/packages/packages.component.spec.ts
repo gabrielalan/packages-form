@@ -68,7 +68,7 @@ describe('PackagesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.kilos).toEqual('0.000');
-    expect(component.total).toEqual(0);
+    expect(component.total).toEqual('0.00');
   });
 
   it('should total and kilos shouldnt be affected by NaN values', () => {
@@ -79,12 +79,12 @@ describe('PackagesComponent', () => {
     component.packages.at(1).get('value').setValue(new CurrencyValueType('EUR', 10));
 
     expect(component.kilos).toEqual('10.000');
-    expect(component.total).toEqual(10);
+    expect(component.total).toEqual('10.00');
 
     component.removePackage(0);
 
     expect(component.kilos).toEqual('10.000');
-    expect(component.total).toEqual(10);
+    expect(component.total).toEqual('10.00');
   });
 
   it('should should handle error from api', () => {

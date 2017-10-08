@@ -20,6 +20,7 @@ export class ConversionRatesService {
   }
 
   convertFrom(currency: string, value: number): number {
-    return Number((this.conversionRates[currency] * value).toFixed(2));
+    const from = this.conversionRates[currency] || 1;
+    return Number((from * value).toFixed(2));
   }
 } /* istanbul ignore next */

@@ -51,9 +51,9 @@ export class PackagesComponent implements OnInit {
   }
 
   send() {
-    const data = Object.assign(this.form.value, {
+    const data = Object.assign({}, this.form.value, {
       packages: this.form.value.packages.map(item => {
-        return Object.assign(item, {
+        return Object.assign({}, item, {
           weight: Number(item.weight),
           value: this.conversion.convertFrom(item.value.currency, item.value.value)
         });
@@ -91,11 +91,13 @@ export class PackagesComponent implements OnInit {
   }
 
   get total() {
-    return this.reduceArrayWith(control => {
+    const sum = this.reduceArrayWith(control => {
       const value = Number(control.value.value);
       // NaN is the only value that is not equal itself in JS
       return value !== value ? 0 : this.conversion.convertFrom(control.value.currency, value);
-    });
+    }) as number;
+
+    return sum.toFixed(2);
   }
 
   get packages(): FormArray {

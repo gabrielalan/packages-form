@@ -36,6 +36,7 @@ describe('ConversionRatesService', () => {
       service.fetch().subscribe(data => {
         expect(data).toEqual(mockResponse);
         expect(service.convertFrom('GBP', 100)).toEqual(111.65);
+        expect(service.convertFrom('NOT_FOUND', 100)).toEqual(100);
       });
     })
   );
