@@ -67,7 +67,7 @@ export class PackagesComponent implements OnInit {
         this.reset();
         this.dialogStream.send({
           title: 'Thank you',
-          body: 'Your shipment is successfully sent. Jut sit and relax!'
+          body: 'Your shipment is successfully sent. Just sit and relax!'
         });
       },
       (error) => {
