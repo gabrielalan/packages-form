@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --bh ./",
+    "start": "ng serve --aot",
+    "build": "ng build --prod --bh ./",
     "test": "ng test --sourcemaps=false",
     "coverage": "ng test --code-coverage",
     "lint": "ng lint",
@@ -21,6 +21,7 @@
     "@angular/http": "^4.4.4",
     "@angular/platform-browser": "^4.4.4",
     "@angular/platform-browser-dynamic": "^4.4.4",
+    "@angular/platform-server": "^4.4.6",
     "@angular/router": "^4.4.4",
     "angular-in-memory-web-api": "^0.5.0",
     "bootstrap": "^4.0.0-beta",

@@ -13,11 +13,11 @@ import { DialogStreamService } from '../../../common/services/dialog-stream.serv
   styleUrls: ['./packages.component.scss']
 })
 export class PackagesComponent implements OnInit {
-  protected loading = true;
+  public loading = true;
 
-  protected form: FormGroup;
+  public form: FormGroup;
 
-  protected currencies = ['EUR', 'USD', 'GBP'];
+  public currencies = ['EUR', 'USD', 'GBP'];
 
   constructor(
     protected formModel: PackagesFormModelService,

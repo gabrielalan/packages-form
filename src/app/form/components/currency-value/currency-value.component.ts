@@ -31,8 +31,8 @@ export class CurrencyValueComponent implements ControlValueAccessor, OnInit {
 
   public show = false;
 
-  protected propagateChange = (_: CurrencyValueType) => {};
-  protected propagateTouched = () => {};
+  public propagateChange = (_: CurrencyValueType) => {};
+  public propagateTouched = () => {};
 
   get valueNumber(): number {
     return this.value ? this.value.value : null;
